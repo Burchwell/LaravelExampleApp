@@ -1,6 +1,4 @@
-<p align="center"><img src="https://d9hhrg4mnvzow.cloudfront.net/explore.gcu.edu/general/d3870267-logo-white_105700x000000000000028.png" width="400" alt="Laravel Logo"></a></p>
-
-## Build a simple PHP CRUD Application that interacts with a MySQL database
+## A simple PHP CRUD Application that interacts with a MySQL database
 
 This application is to showcase my experiance with PHP and MySQL. I am using 
 Laravel/Vue as a framework. This Laravel repo includes additional features that 
