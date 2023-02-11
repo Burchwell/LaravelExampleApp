@@ -1,0 +1,49 @@
+name: Deploy to Staging
+on:
+  push:
+    branches:
+      - staging
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Copy .env
+        run: php -r "file_exists('.env') || copy('.env.example', '.env');"
+
+      - name: Install Dependencies
+        run: composer install -q --no-ansi --no-interaction --no-progress --prefer-dist --optimize-autoloader
+
+      - name: Generate key
+        run: php artisan key:generate
+
+      - name: Set permissions
+        run: chmod -R 775 storage bootstrap/cache
+
+      - name: Clear old cache
+        run: php artisan clear-compiled
+
+      - name: Recreate Cache
+        run: php artisan optimize
+
+      - name: Setup Node.JS
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          check-latest: true
+
+      - name: Install NPM dependencies
+        run: npm install
+
+      - name: Deploy to server
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          username: ${{ secrets.SSH_USERNAME }}
+          script: |
+            cd /var/www/documents.ovelly.org/staging
+            ./.github/staging_deploy.sh
