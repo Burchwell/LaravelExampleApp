@@ -34,7 +34,6 @@ class Kernel extends HttpKernel
         ValidatePostSize::class,
         TrimStrings::class,
         ConvertEmptyStringsToNull::class,
-        ForceJson::class,
         HandleCors::class
     ];
 

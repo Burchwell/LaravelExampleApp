@@ -12,6 +12,26 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
+    public const validationRules = [
+        'name' => [
+            'required',
+            'string'
+        ],
+        'email' => [
+            'required',
+            'email'
+        ],
+        'employee_id' => [
+            'required',
+            'regex:/[A-Z]{2}-[0-9]{3}/'
+        ],
+        'password' => [
+            'required',
+            'string',
+            'confirmed'
+        ]
+    ];
+
     /**
      * The attributes that are mass assignable.
      *
@@ -20,6 +40,7 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'employee_id',
         'password',
     ];
 
@@ -31,14 +52,5 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
         'remember_token',
-    ];
-
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
-     */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
     ];
 }
