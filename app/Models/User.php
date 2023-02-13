@@ -15,21 +15,21 @@ class User extends Authenticatable
     public const validationRules = [
         'name' => [
             'required',
-            'string'
+            'string',
         ],
         'email' => [
             'required',
-            'email'
+            'email',
         ],
         'employee_id' => [
             'required',
-            'regex:/[A-Z]{2}-[0-9]{3}/'
+            'regex:/[A-Z]{2}-[0-9]{3}/',
         ],
         'password' => [
             'required',
             'string',
-            'confirmed'
-        ]
+            'confirmed',
+        ],
     ];
 
     /**

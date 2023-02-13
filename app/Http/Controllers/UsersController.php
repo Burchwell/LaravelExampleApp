@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Helpers\Arrays;
 use App\Models\User;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -33,6 +32,7 @@ class UsersController extends Controller
             return view('home', compact('users'));
         } catch (Throwable $e) {
             Log::error($e->getMessage());
+
             return back()->with('msg', ['type'=>'danger', 'message' => $e->getMessage()]);
         }
     }
@@ -59,6 +59,7 @@ class UsersController extends Controller
             $validateUserCreate = Validator::make($request->all(), User::validationRules);
             if ($validateUserCreate->fails()) {
                 Session::flash('errors', $validateUserCreate->errors());
+
                 return redirect()->back()->withInput($request->input());
             }
 
@@ -71,6 +72,7 @@ class UsersController extends Controller
             return redirect('/home')->with('msg', ['type'=>'success', 'message'=> 'User created.']);
         } catch (Throwable $e) {
             Log::error($e->getMessage());
+
             return back()->with('msg', ['type'=>'danger', 'message' => $e->getMessage()]);
         }
     }
@@ -85,9 +87,11 @@ class UsersController extends Controller
     {
         try {
             $user = User::find($id);
+
             return view('user.show', ['user' => $user, 'edit' => false]);
         } catch (Throwable $e) {
             Log::error($e->getMessage());
+
             return back()->withErrors(['danger' => $e->getMessage()]);
         }
     }
@@ -102,9 +106,11 @@ class UsersController extends Controller
     {
         try {
             $user = User::find($id);
+
             return view('user.show', ['user' => $user, 'edit' => true]);
         } catch (Throwable $e) {
             Log::error($e->getMessage());
+
             return back()->with('msg', ['type'=>'danger', 'message' => $e->getMessage()]);
         }
     }
@@ -121,7 +127,7 @@ class UsersController extends Controller
         try {
             $user = User::find($id);
             if ($user === null) {
-                return back()->with('msg', ["errors", "User `{$id}` not found"]);
+                return back()->with('msg', ['errors', "User `{$id}` not found"]);
             }
             $rules = User::validationRules;
             if ($request->get('password') === null) {
@@ -132,15 +138,18 @@ class UsersController extends Controller
 
             if ($validateUserUpdate->fails()) {
                 Session::flash('errors', $validateUserUpdate->errors());
+
                 return redirect()->back()->withInput();
             }
 
             if ($validateUserUpdate->validated()) {
                 $user->update(array_filter($request->except(['_token', '_method'])));
             }
+
             return redirect()->back()->with('msg', ['type'=>'success', 'message' => "User `{$id} updated."]);
         } catch (Throwable $e) {
             Log::error($e->getMessage());
+
             return redirect()->back()->with('msg', ['type' => 'danger', 'message' => $e->getMessage()]);
         }
     }
@@ -159,11 +168,12 @@ class UsersController extends Controller
                 return back()->withErrors(['danger' => "User `{$id}` not found."]);
             }
             $user->delete();
+
             return back()->with('success', 'User successful deleted.');
         } catch (Throwable $e) {
             Log::error($e->getMessage());
+
             return back()->withErrors(['danger' => $e->getMessage()]);
         }
-
     }
 }

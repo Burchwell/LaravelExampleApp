@@ -21,14 +21,14 @@ Auth::routes();
 
 Route::group([
     'middleware' => 'auth',
-    'prefix' => 'home'
+    'prefix' => 'home',
 ], static function () {
     Route::get('', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 });
 
 Route::group([
     'middleware' => 'auth',
-    'prefix' => 'users'
+    'prefix' => 'users',
 ], static function () {
     Route::get('', [App\Http\Controllers\UsersController::class, 'create']);
     Route::post('', [App\Http\Controllers\UsersController::class, 'store']);

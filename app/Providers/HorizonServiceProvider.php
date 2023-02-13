@@ -21,7 +21,7 @@ class HorizonServiceProvider extends HorizonApplicationServiceProvider
         // Horizon::routeSlackNotificationsTo('slack-webhook-url', '#channel');
 
         if (!Time::isDayTime()) {
-             Horizon::night();
+            Horizon::night();
         }
     }
 

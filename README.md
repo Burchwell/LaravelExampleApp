@@ -38,6 +38,12 @@ php artisan migrate:refresh --seed (If updating db)
 6. Visit Localhost
 http://localhost
 ## Additional Tools
+## Telescope
+http://localhost/telescope Local Development Tool
+
+http://localhost/horizon Redis Queue Management Dashboard
+
+
 ### Linting
 <a href="https://github.com/PHP-CS-Fixer/PHP-CS-Fixer">PHP-CS-Fixer</a> with default settings is used for linting 
 
