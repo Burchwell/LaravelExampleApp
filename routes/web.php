@@ -19,4 +19,21 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::group([
+    'middleware' => 'auth',
+    'prefix' => 'home'
+], static function () {
+    Route::get('', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+});
+
+Route::group([
+    'middleware' => 'auth',
+    'prefix' => 'user'
+], static function () {
+    Route::post('', [App\Http\Controllers\HomeController::class, 'store']);
+    Route::group(['prefix' => '{id}'], static function () {
+        Route::get('edit', [App\Http\Controllers\HomeController::class, 'show']);
+        Route::put('', [App\Http\Controllers\HomeController::class, 'update']);
+        Route::delete('', [App\Http\Controllers\HomeController::class, 'delete']);
+    });
+});
