@@ -1,4 +1,5 @@
 <?php
+
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,8 +16,9 @@ use Illuminate\Support\Facades\Route;
 Route::group(
     [
         'middleware' => ['ForceJson'],
-        'prefix' => 'v1'
-    ]
-, static function () {
-    require __DIR__.'/api/v1.php';
-});
+        'prefix' => 'v1',
+    ],
+    static function () {
+        require __DIR__ . '/api/v1.php';
+    }
+);

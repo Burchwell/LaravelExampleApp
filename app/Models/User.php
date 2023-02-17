@@ -12,6 +12,26 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
+    public const validationRules = [
+        'name' => [
+            'required',
+            'string',
+        ],
+        'email' => [
+            'required',
+            'email',
+        ],
+        'employee_id' => [
+            'required',
+            'regex:/[A-Z]{2}-[0-9]{3}/',
+        ],
+        'password' => [
+            'required',
+            'string',
+            'confirmed',
+        ],
+    ];
+
     /**
      * The attributes that are mass assignable.
      *

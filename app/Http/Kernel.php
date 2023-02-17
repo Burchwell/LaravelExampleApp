@@ -3,7 +3,6 @@
 namespace App\Http;
 
 use App\Http\Middleware\EncryptCookies;
-use App\Http\Middleware\ForceJson;
 use App\Http\Middleware\PreventRequestsDuringMaintenance;
 use App\Http\Middleware\TrimStrings;
 use App\Http\Middleware\TrustProxies;
@@ -34,8 +33,7 @@ class Kernel extends HttpKernel
         ValidatePostSize::class,
         TrimStrings::class,
         ConvertEmptyStringsToNull::class,
-        ForceJson::class,
-        HandleCors::class
+        HandleCors::class,
     ];
 
     /**
